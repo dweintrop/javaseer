@@ -1,31 +1,40 @@
-#!/usr/bin/tcsh
+#!/bin/bash
 
-if ( "$1" == "" ) then
+if [[ $# -lt 2 ]]
+then
   echo ""
-  echo "     USAGE: ./setup.sh [StudentID email]"
-  echo "        ex: ./setup.sh 12345678 student@cps.edu"
+  echo "     USAGE: ./setup.sh [StudentID name]"
+  echo "        ex: ./setup.sh 12345678 David Weintrop"
   echo ""
   exit
-endif
+fi
+
+# grab student ID
+ID=$1
+shift
+
+NAME=$1
+shift
+#grab student name
+while [[ $# -ge 1 ]]
+do
+  NAME="$NAME $1"
+  shift
+done
 
 # Download the appropriate compiler for the user's shell
-if ( "$SHELL" =~ *bash ) then
-  curl -k https://https://raw.githubusercontent.com/dweintrop/javaseer/master/scripts/javaseer.sh -o ~/javaseer.sh
-  echo 'alias javac="~/javaseer.sh"' >> ~/.bash_aliases
-  source ~/.bash_aliases
-  echo "alias has been setup."
-# else if ( "$SHELL" =~ *tcsh* ) then
-#   # tcsh version (UMD default shell)
-#   curl -k https://raw.github.com/WilDoane/GitDataCollection/master/research-compiler-tcsh.sh -o ~/research-compiler.sh
-#   echo 'alias gcc "~/research-compiler.sh"' >> ~/.aliases
-#   source ~/.aliases
+if [[ "$SHELL" = '/bin/bash' ]]
+then
+  curl -k https://raw.githubusercontent.com/dweintrop/javaseer/master/scripts/javaseer.sh -o ~/javaseer.sh
+  echo 'alias javac="~/javaseer.sh"' >> ~/.bash_profile
+  echo "export STUDENT_ID=\"$ID\"" >> ~/.bash_profile
+  echo "export STUDENT_NAME=\"$NAME\"" >> ~/.bash_profile
+  echo "alias has been setup. please close then reopen the terminal"
 else
   echo "this user's shell isn't BASH"
   echo "no setup was performed"
   exit
-endif
+fi
 
 # Make the research compiler executable
 chmod 700 ~/javaseer.sh
-
-  
