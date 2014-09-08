@@ -17,6 +17,6 @@ def javaseer(request):
 			JavaCompilerOutput = request.POST['javaCompilerOutput'],
 			)
 		javaseer.save()
-		return HttpResponse('success')
+		return HttpResponse('')
 	return HttpResponse('There was an error recording your compilation - please tell Mr. Weintrop')
 	# return HttpResponse('There was an error recording your compilation - please tell Mr. Weintrop')
