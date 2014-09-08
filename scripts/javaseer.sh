@@ -1,29 +1,35 @@
 # An instrumentation of the java compiler command to push to a remote server
 
-# find javac
-# if [ -e /usr/gcc ]; then GCC=/usr/gcc; fi;
-# if [ -e /usr/bin/gcc ]; then GCC=/usr/bin/gcc; fi;
-# if [ -e /usr/local/gcc ]; then GCC=/usr/local/gcc; fi;
-# if [ -e /usr/local/bin/gcc ]; then GCC=/usr/local/bin/gcc; fi;
-
-# echo $STUDENT_ID
-
 # run javac with the full list of arguments,
 # capturing STDERR (2) to STDOUT (&1)
 # and store the STDOUT (i.e., the compiler output) in the variable RESULT
-# RESULT=$($GCC $@ 2>&1)
 RESULT=$(javac $@ 2>&1)
 
-# figure out how to read in java files
-JAVA_PROGRAM="program"
+JAVA_CALL="$*"
+
+# read in java file contents
+JAVA_PROGRAM="`cat $1`"
+shift
+while [[ $# -ge 1 ]]
+do
+  JAVA_PROGRAM="$JAVA_PROGRAM
+  
+  ---EOF---
+
+  `cat $1`"
+  shift
+done
+
+
 
 # post the data to the server
+# note STUDENT_NAME and STUDENT_ID are environment vars set by setup.sh
 curl --request POST 'http://localhost:8000/javaseer/' \
 		--data-urlencode "student_id=$STUDENT_ID" \
 		--data-urlencode "student_name=$STUDENT_NAME" \
-		--data-urlencode "javacCall=$*" \
+		--data-urlencode "javacCall=$JAVA_CALL" \
 		--data-urlencode "javaProgram=$JAVA_PROGRAM" \
-		--data-urlencode "javaCompilerOutput=$RESULTS"
+		--data-urlencode "javaCompilerOutput=$RESULT"
 
 # display the compiler output to the user
 echo "$RESULT"
