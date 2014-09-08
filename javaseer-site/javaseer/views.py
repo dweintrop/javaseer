@@ -14,7 +14,7 @@ def javaseer(request):
 			JavacCall = request.POST['javacCall'],
 			TimeStamp = datetime.datetime.now(),
 			JavaProgram = request.POST['javaProgram'],
-			JavaCompilerOutput = request.POST['javaCompilerOutput']
+			JavaCompilerOutput = request.POST['javaCompilerOutput'],
 			)
 		javaseer.save()
 		return HttpResponse('success')
