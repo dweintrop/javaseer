@@ -10,4 +10,4 @@ class Javaseer(models.Model):
   NumRuns = models.IntegerField()
 
   def __unicode__(self):
-    return self.StudentID + ': ' + JavacCAll + " -  " + self.TimeStamp.strftime("%m.%d.%Y %H:%M:%S")
+    return self.StudentID + ': ' + JavacCall + " -  " + self.TimeStamp.strftime("%m.%d.%Y %H:%M:%S")
