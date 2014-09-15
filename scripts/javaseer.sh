@@ -1,4 +1,4 @@
-# An instrumentation of the java compiler command to push to a remote server
+# An instrumentation of the java compiler command to log compilation requets on a remote server 
 
 # run javac with the full list of arguments,
 # capturing STDERR (2) to STDOUT (&1)
