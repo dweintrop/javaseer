@@ -24,7 +24,7 @@ done
 
 # post the data to the server
 # note STUDENT_NAME and STUDENT_ID are environment vars set by setup.sh
-curl --request POST 'http://localhost:8000/javaseer/' \
+curl --request POST "$JAVASEER_URL/javaseer/" \
 		--data-urlencode "student_id=$STUDENT_ID" \
 		--data-urlencode "student_name=$STUDENT_NAME" \
 		--data-urlencode "javacCall=$JAVA_CALL" \
