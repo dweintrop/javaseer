@@ -72,7 +72,7 @@ DATABASES = {'default': dj_database_url.config(default=os.environ.get('DATABASE_
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Chicago'
 
 USE_I18N = True
 
