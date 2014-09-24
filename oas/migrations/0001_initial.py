@@ -20,7 +20,6 @@ class Migration(migrations.Migration):
                 ('TimeStamp', models.DateTimeField()),
                 ('JavaProgram', models.TextField()),
                 ('JavaCompilerOutput', models.TextField()),
-                ('NumRuns', models.IntegerField()),
             ],
             options={
             },
