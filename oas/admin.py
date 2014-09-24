@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from oas.models import Javaseer
+from oas.models import Javaseer, Chirp
 
 class JavaseerAdmin(admin.ModelAdmin):
   list_display = ('StudentID', 'TimeStamp', 'JavacCall')
@@ -20,4 +20,9 @@ class JavaseerAdmin(admin.ModelAdmin):
   #       response['Content-Disposition'] = 'attachment; filename="snapinteractions.csv"'
   #       return response
 
+class ChirpAdmin(admin.ModelAdmin):
+  list_display = ('StudentID', 'TimeStamp', 'JavacCall')
+  list_filter = ('StudentID', 'JavacCall')
+
 admin.site.register(Javaseer, JavaseerAdmin)
+admin.site.register(Chirp, ChirpAdmin)
