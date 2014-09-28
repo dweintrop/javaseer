@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from oas.models import Javaseer, Chirp
+from oas.models import Javaseer, Chirp, ChirpRun
 
 class JavaseerAdmin(admin.ModelAdmin):
   list_display = ('StudentID', 'TimeStamp', 'JavacCall')
@@ -24,5 +24,10 @@ class ChirpAdmin(admin.ModelAdmin):
   list_display = ('StudentID', 'TimeStamp', 'JavacCall')
   list_filter = ('StudentID', 'JavacCall')
 
+class ChirpRunAdmin(admin.ModelAdmin):
+  list_display = ('StudentID', 'TimeStamp', 'ClassName')
+  list_filter = ('StudentID', 'ClassName')
+
 admin.site.register(Javaseer, JavaseerAdmin)
 admin.site.register(Chirp, ChirpAdmin)
+admin.site.register(ChirpRun, ChirpRunAdmin)

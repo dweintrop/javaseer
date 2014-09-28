@@ -1,7 +1,7 @@
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse
 
-from oas.models import Javaseer, Chirp
+from oas.models import Javaseer, Chirp, ChirpRun
 
 import os
 import datetime
@@ -14,7 +14,6 @@ def javaseer(request):
 		javaseer = Javaseer(
 			StudentID = request.POST['student_id'],
 			StudentName = request.POST['student_name'],
-			Source = 'command line',
 			JavacCall = request.POST['javacCall'],
 			TimeStamp = datetime.datetime.now(),
 			JavaProgram = request.POST['javaProgram'],
@@ -33,17 +32,32 @@ def chirp(request):
 
 	log.info(request)
 	if request.method == 'POST':
-		chirp = Chirp(
-			StudentID = request.POST['STUDENT_ID'],
-			StudentName = request.POST['STUDENT_NAME'],
-			Source = 'BlueJ',
-			JavacCall = request.POST['FILE_NAME'],
-			TimeStamp = datetime.datetime.now(),
-			JavaProgram = request.POST['FILE_CONTENTS'],
-			JavaCompilerOutput = request.POST['MSG_TYPE'] + ': ' + request.POST['MSG_MESSAGE'],
-			NumCompiles = request.POST['TOTAL_COMPILES']
-			)
-		chirp.save()
+		if request.POST['DELTA_NAME'] == 'CompileData':
+			# BlueJ Compile Event
+			chirp = Chirp(
+				StudentID = request.POST['STUDENT_ID'],
+				StudentName = request.POST['STUDENT_NAME'],
+				JavacCall = request.POST['FILE_NAME'],
+				TimeStamp = datetime.datetime.now(),
+				JavaProgram = request.POST['FILE_CONTENTS'],
+				JavaCompilerOutput = request.POST['MSG_TYPE'] + ': ' + request.POST['MSG_MESSAGE'],
+				NumCompiles = request.POST['TOTAL_COMPILES']
+				)
+			chirp.save()
+			
+		if request.POST['DELTA_NAME'] == 'InvocationData':
+			# BlueJ Run (Ojbect invoked) Event
+			chirpRun = ChirpRun (
+				StudentID = request.POST['STUDENT_ID'],
+				StudentName = request.POST['STUDENT_NAME'],
+				ClassName = request.POST['CLASS_NAME'],
+				MethodName = request.POST['METHOD_NAME'],
+				ObjectName = request.POST['OBJECT_NAME'],
+				Parameters = request.POST['PARAMETERS'],
+				Result = request.POST['RESULT'],
+				TimeStamp = datetime.datetime.now()
+				)
+			chirpRun.save()
 		return HttpResponse('')
 	return HttpResponse('There was an error recording your compilation - please tell Mr. Weintrop')
 
