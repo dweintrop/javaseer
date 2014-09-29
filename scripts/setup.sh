@@ -30,7 +30,7 @@ then
   echo "export STUDENT_ID=\"$ID\"" >> ~/.bash_profile
   echo "export STUDENT_NAME=\"$NAME\"" >> ~/.bash_profile
   echo "export JAVASEER_URL=\"http://javaseer.herokuapp.com\"" >> ~/.bash_profile
-  echo "alias has been setup. please close then reopen the terminal"
+  echo "alias has been setup. please close then reopen the terminal."
 else
   echo "this user's shell isn't BASH"
   echo "no setup was performed"
