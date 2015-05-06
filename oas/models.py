@@ -50,4 +50,4 @@ class PencilCodeEvent(models.Model):
   ProjectCSS = models.TextField()
   
   def __unicode__(self):
-    return self.StudentID + ': ' + self.Assignment + " @ " + self.TimeStamp.strftime("%m.%d.%Y %H:%M:%S") + " - " + self.Text
+    return self.StudentID + ': ' + self.Assignment + " @ " + self.TimeStamp.strftime("%m.%d.%Y %H:%M:%S") + " - " + self.Program
