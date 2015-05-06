@@ -90,7 +90,7 @@ def pencilCoder(request):
 		  ProjectCSS = request.POST['projectCSS']
 			)
 		pencilCodeEvent.save()
-		return HttpResponse('success')
+		return HttpResponse('successfully created Log: ' + str(pencilCodeEvent.id))
 	return HttpResponse('faliure')
 
 
