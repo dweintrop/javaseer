@@ -35,3 +35,19 @@ class ChirpRun(models.Model):
 
   def __unicode__(self):
     return self.StudentID + ' - ' + self.ClassName + " -  " + self.TimeStamp.strftime("%m.%d.%Y %H:%M:%S")
+
+class PencilCodeEvent(models.Model):
+  StudentID = models.CharField(max_length=30)
+  Assignment = models.CharField(max_length=30)
+  ProjectName = models.CharField(max_length=50)
+  TimeStamp = models.DateTimeField()
+  Condition = models.CharField(max_length=30) # study condition -> (block, text, hybrid)
+  EditorMode = models.CharField(max_length=30) # state of droplet UI -> (blocks, text, text-with-palette)
+  EventType = models.CharField(max_length=30) # (textInput, mouseInput, run, close)
+  Program = models.TextField()
+  FloatingBlocks = models.TextField()
+  ProjectHTML = models.TextField()
+  ProjectCSS = models.TextField()
+  
+  def __unicode__(self):
+    return self.StudentID + ': ' + self.Assignment + " @ " + self.TimeStamp.strftime("%m.%d.%Y %H:%M:%S") + " - " + self.Text

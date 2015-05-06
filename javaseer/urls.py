@@ -6,7 +6,10 @@ urlpatterns = patterns('',
 	
 	url(r'^javaseer/$', views.javaseer ),
 	url(r'^chirp/$', views.chirp ),
+    
+  url(r'^pencilCoder/$', views.pencilCoder),
+
 	url(r'^setup/$', views.setup ),
 
-    url(r'^admin/', include(admin.site.urls)),
+  url(r'^admin/', include(admin.site.urls)),
 )

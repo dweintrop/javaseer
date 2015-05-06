@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from oas.models import Javaseer, Chirp, ChirpRun
+from oas.models import Javaseer, Chirp, ChirpRun, PencilCodeEvent
 
 class JavaseerAdmin(admin.ModelAdmin):
   list_display = ('StudentID', 'TimeStamp', 'JavacCall')
@@ -28,6 +28,12 @@ class ChirpRunAdmin(admin.ModelAdmin):
   list_display = ('StudentID', 'TimeStamp', 'ClassName')
   list_filter = ('StudentID', 'ClassName')
 
+class PencilCodeEventAdmin(admin.ModelAdmin):
+  list_display = ('StudentID', 'Assignment', 'TimeStamp', 'Condition')
+  list_filter = ('StudentID', 'Assignment', 'Condition')
+
+
 admin.site.register(Javaseer, JavaseerAdmin)
 admin.site.register(Chirp, ChirpAdmin)
 admin.site.register(ChirpRun, ChirpRunAdmin)
+admin.site.register(PencilCodeEvent, PencilCodeEventAdmin)

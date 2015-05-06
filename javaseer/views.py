@@ -1,7 +1,7 @@
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse
 
-from oas.models import Javaseer, Chirp, ChirpRun
+from oas.models import Javaseer, Chirp, ChirpRun, PencilCodeEvent
 
 import os
 import datetime
@@ -71,3 +71,26 @@ def setup(request):
 	response.write(setup_text)
 
 	return response
+
+
+# store a user pencil code interaction
+def pencilCoder(request): 
+	if request.method == 'POST':
+		pencilCodeEvent = PencilCodeEvent(
+		  StudentID = request.POST['student_id'],
+		  Assignment = request.POST['assignment'],
+		  ProjectName = request.POST['project_name'],
+		  TimeStamp = datetime.datetime.now(),
+		  EditorMode = request.POST['editorMode'],
+		  Condition = request.POST['condition'],
+		  EventType = request.POST['eventType'],
+		  Program = request.POST['program'],
+		  FloatingBlocks = request.POST['floatingBlocks'],
+		  ProjectHTML = request.POST['projectHTML'],
+		  ProjectCSS = request.POST['projectCSS']
+			)
+		pencilCodeEvent.save()
+		return HttpResponse('success')
+	return HttpResponse('faliure')
+
+
