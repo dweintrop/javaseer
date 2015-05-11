@@ -1,10 +1,11 @@
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse
 
-from oas.models import Javaseer, Chirp, ChirpRun, PencilCodeEvent
+from oas.models import Javaseer, Chirp, ChirpRun, PencilCodeEvent, Student
 
 import os
 import datetime
+import json
 import logging    
 
 
@@ -93,4 +94,20 @@ def pencilCoder(request):
 		return HttpResponse('successfully created Log: ' + str(pencilCodeEvent.id))
 	return HttpResponse('faliure')
 
+def get_data(request, table):
+	if 'filter' in request.GET:
+		inFilter = request.GET['filter']
+		if table == 'Students':
+			teachers = Student.objects.filter(School="Northwestern").order_by("Name")
+			students = Student.objects.filter(School=inFilter).order_by("Name")
+			teacher_json = [(t.id, t.Name) for t in teachers]
+			student_json = [(s.id, s.Name) for s in students]
+			data_json = teacher_json + student_json
+		# elif table == 'Section':
+		#   teacher = Teacher.objects.get(id=inFilter)
+		#   sections = Section.objects.filter(teacher=teacher)
+		#   data_json = [(s.id, s.subject + ' ' + s.section) for s in sections]
+		return HttpResponse(json.dumps({'table' : table, 'values': data_json}))#, mimetype="application/json")
+	else:
+		return HttpResponse(table)
 
