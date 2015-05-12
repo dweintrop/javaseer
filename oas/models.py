@@ -39,6 +39,7 @@ class ChirpRun(models.Model):
 class PencilCodeEvent(models.Model):
   StudentID = models.CharField(max_length=30)
   Assignment = models.CharField(max_length=30)
+  Hostname = models.CharField(max_length=100)
   ProjectName = models.CharField(max_length=50)
   TimeStamp = models.DateTimeField()
   Condition = models.CharField(max_length=30) # study condition -> (block, text, hybrid, default-PC)

@@ -81,6 +81,7 @@ def pencilCoder(request):
 		  StudentID = request.POST['student_id'],
 		  Assignment = request.POST['assignment'],
 		  ProjectName = request.POST['project_name'],
+		  Hostname = request.POST['hostname'],
 		  TimeStamp = datetime.datetime.now(),
 		  EditorMode = request.POST['editorMode'],
 		  Condition = request.POST['condition'],
