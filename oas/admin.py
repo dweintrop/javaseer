@@ -29,7 +29,7 @@ class ChirpRunAdmin(admin.ModelAdmin):
   list_filter = ('StudentID', 'ClassName')
 
 class PencilCodeEventAdmin(admin.ModelAdmin):
-  list_display = ('StudentID', 'Hostname', 'Assignment', 'ProjectName','TimeStamp', 'Condition', 'EventType')
+  list_display = ('id', 'StudentID', 'Hostname', 'Assignment', 'ProjectName','TimeStamp', 'Condition', 'EventType')
   list_filter = ('TimeStamp', 'Assignment', 'Condition', 'StudentID')
 
 class StudentAdmin(admin.ModelAdmin):
