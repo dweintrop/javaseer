@@ -1,7 +1,7 @@
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse
 
-from oas.models import Javaseer, Chirp, ChirpRun, PencilCodeEvent, Student
+from oas.models import Javaseer, Chirp, ChirpRun, PencilCodeEvent, Student, QuickRef
 
 import os
 import datetime
@@ -92,7 +92,22 @@ def pencilCoder(request):
 		  ProjectCSS = request.POST['projectCSS']
 			)
 		pencilCodeEvent.save()
-		return HttpResponse('successfully created Log: ' + str(pencilCodeEvent.id))
+		return HttpResponse('successfully created PencilCodeEvent: ' + str(pencilCodeEvent.id))
+	return HttpResponse('faliure')
+
+# store a user pencil code interaction
+def pencilCodeQuickRef(request): 
+	if request.method == 'POST':
+		quickRef = QuickRef(
+		  StudentID = request.POST['student_id'],
+		  Assignment = request.POST['assignment'],
+		  Hostname = request.POST['hostname'],
+		  EditorMode = request.POST['editorMode'],
+		  Condition = request.POST['condition'],
+		  Page = request.POST['page'],
+			)
+		quickRef.save()
+		return HttpResponse('successfully created QuickRef: ' + str(quickRef.id))
 	return HttpResponse('faliure')
 
 def get_data(request, table):

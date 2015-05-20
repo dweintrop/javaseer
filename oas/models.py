@@ -64,3 +64,14 @@ class Student(models.Model):
 
   def __unicode__(self):
     return self.StudentID + ': ' + self.Name + '  - ' + self.School 
+
+class QuickRef(models.Model):
+  StudentID = models.CharField(max_length=30)
+  Assignment = models.CharField(max_length=30)
+  Hostname = models.CharField(max_length=100)
+  Condition = models.CharField(max_length=30) # study condition -> (block, text, hybrid, default-PC)
+  EditorMode = models.CharField(max_length=30) # state of droplet UI -> (blocks, text, text-with-palette)
+  Page = models.CharField(max_length=20)
+
+  def __unicode__(self):
+    return self.StudentID + ': '+ self.Assignment + ' ' + self.Condition + '  - ' + self.Page 

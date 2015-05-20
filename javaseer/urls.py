@@ -9,6 +9,7 @@ urlpatterns = patterns('',
 
   url(r'^get_data/(?P<table>\w{0,30})/$', views.get_data),
   url(r'^pencilCoder/$', views.pencilCoder),
+  url(r'^pencilCodeQuickRef/$', views.pencilCodeQuickRef),
 
 	url(r'^setup/$', views.setup ),
 
