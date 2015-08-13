@@ -84,6 +84,7 @@ def pencilCoder(request):
 		  Hostname = request.POST['hostname'],
 		  TimeStamp = datetime.datetime.now(),
 		  EditorMode = request.POST['editorMode'],
+		  PaletteVisible = request.POST['paletteVisible'],
 		  Condition = request.POST['condition'],
 		  EventType = request.POST['eventType'],
 		  Program = request.POST['program'],
