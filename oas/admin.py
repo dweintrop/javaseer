@@ -33,7 +33,7 @@ class PencilCodeEventAdmin(admin.ModelAdmin):
   list_filter = ('TimeStamp', 'Assignment', 'Condition', 'StudentID')
 
 class StudentAdmin(admin.ModelAdmin):
-  list_display = ('StudentID', 'Name', 'School', 'Condition')
+  list_display = ('StudentID', 'Name', 'School', 'Class', 'Condition')
   list_filter = ('School', 'Condition')
 
 class QuickRefAdmin(admin.ModelAdmin):

@@ -115,15 +115,16 @@ def get_data(request, table):
 	if 'filter' in request.GET:
 		inFilter = request.GET['filter']
 		if table == 'Students':
-			teachers = Student.objects.filter(School="Admin").order_by("Name")
-			students = Student.objects.filter(School=inFilter).order_by("Name")
-			teacher_json = [({'studentID':t.StudentID, 'name': t.Name, 'username': t.Username, 'condition':t.Condition, 'password': t.Password}) for t in teachers]
+			inFilterSplit = inFilter.split(' - ')
+			admins = Student.objects.filter(School='Northwestern', Class="Admin").order_by("Name")
+			teachers = Student.objects.filter(School=inFilterSplit[0], Class="Admin").order_by("Name")
+			students = Student.objects.filter(School=inFilterSplit[0], Class=inFilterSplit[1]).order_by("Name")
+
+			# for both admins and teachers, take the condition from the first student as they're broken down by class
+			admin_json = [({'studentID':a.StudentID, 'name': a.Name, 'username': a.Username, 'condition':students[0].Condition, 'password': a.Password}) for a in admins]
+			teacher_json = [({'studentID':t.StudentID, 'name': t.Name, 'username': t.Username, 'condition':students[0].Condition, 'password': t.Password}) for t in teachers]
 			student_json = [({'studentID':s.StudentID, 'name': s.Name, 'username': s.Username, 'condition':s.Condition, 'password': s.Password}) for s in students]
-			data_json = teacher_json + student_json
-		# elif table == 'Section':
-		#   teacher = Teacher.objects.get(id=inFilter)
-		#   sections = Section.objects.filter(teacher=teacher)
-		#   data_json = [(s.id, s.subject + ' ' + s.section) for s in sections]
+			data_json = admin_json + teacher_json + student_json
 		return HttpResponse(json.dumps({'table' : table, 'values': data_json}))#, mimetype="application/json")
 	else:
 		return HttpResponse(table)
