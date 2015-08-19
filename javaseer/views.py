@@ -115,7 +115,7 @@ def get_data(request, table):
 	if 'filter' in request.GET:
 		inFilter = request.GET['filter']
 		if table == 'Students':
-			teachers = Student.objects.filter(School="Northwestern").order_by("Name")
+			teachers = Student.objects.filter(School="Admin").order_by("Name")
 			students = Student.objects.filter(School=inFilter).order_by("Name")
 			teacher_json = [({'studentID':t.StudentID, 'name': t.Name, 'username': t.Username, 'condition':t.Condition, 'password': t.Password}) for t in teachers]
 			student_json = [({'studentID':s.StudentID, 'name': s.Name, 'username': s.Username, 'condition':s.Condition, 'password': s.Password}) for s in students]
