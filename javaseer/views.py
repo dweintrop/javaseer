@@ -115,10 +115,15 @@ def get_data(request, table):
 	if 'filter' in request.GET:
 		inFilter = request.GET['filter']
 		if table == 'Students':
-			inFilterSplit = inFilter.split(' - ')
+			inSchool = inFilter
+			inClass = ' '
+			if ' - ' in inFilter:
+				inSchool = inFilter.split(' - ')[0]
+				inClass = inFilter.split(' - ')[1]
+
 			admins = Student.objects.filter(School='Northwestern', Class="Admin").order_by("Name")
-			teachers = Student.objects.filter(School=inFilterSplit[0], Class="Admin").order_by("Name")
-			students = Student.objects.filter(School=inFilterSplit[0], Class=inFilterSplit[1]).order_by("Name")
+			teachers = Student.objects.filter(School=inSchool, Class="Admin").order_by("Name")
+			students = Student.objects.filter(School=inSchool, Class=inClass).order_by("Name")
 
 			# for both admins and teachers, take the condition from the first student as they're broken down by class
 			admin_json = [({'studentID':a.StudentID, 'name': a.Name, 'username': a.Username, 'condition':students[0].Condition, 'password': a.Password}) for a in admins]
