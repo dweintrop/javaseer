@@ -130,6 +130,14 @@ def get_data(request, table):
 			teacher_json = [({'studentID':t.StudentID, 'name': t.Name, 'username': t.Username, 'condition':students[0].Condition, 'password': t.Password}) for t in teachers]
 			student_json = [({'studentID':s.StudentID, 'name': s.Name, 'username': s.Username, 'condition':s.Condition, 'password': s.Password}) for s in students]
 			data_json = admin_json + teacher_json + student_json
+		elif table == 'StudentsByTeacher':
+			# inTeacherID = inFilter
+			# teacher = Student.objects.get(StudentID=inTeacherID)
+			# students = Student.objects.filter(School=teacher.School).order_by("Name")
+			inSchool = inFilter.split(' - ')[0]
+			students = Student.objects.filter(School=inSchool).order_by("Name")
+			data_json = [({'studentID':s.StudentID, 'name': s.Name, 'username': s.Username, 'condition':s.Condition, 'class':s.Class}) for s in students]
+
 		return HttpResponse(json.dumps({'table' : table, 'values': data_json}))#, mimetype="application/json")
 	else:
 		return HttpResponse(table)
