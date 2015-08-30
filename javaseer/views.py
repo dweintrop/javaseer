@@ -106,6 +106,7 @@ def pencilCodeQuickRef(request):
 		  EditorMode = request.POST['editorMode'],
 		  Condition = request.POST['condition'],
 		  Page = request.POST['page'],
+		  TimeStamp = datetime.datetime.now()
 			)
 		quickRef.save()
 		return HttpResponse('successfully created QuickRef: ' + str(quickRef.id))

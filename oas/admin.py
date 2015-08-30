@@ -37,7 +37,7 @@ class StudentAdmin(admin.ModelAdmin):
   list_filter = ('School', 'Condition')
 
 class QuickRefAdmin(admin.ModelAdmin):
-  list_display = ('id', 'StudentID', 'Condition', 'Page')
+  list_display = ('id', 'StudentID', 'Condition', 'Page', 'TimeStamp')
   list_filter = ('Condition', 'Page')
 
 
