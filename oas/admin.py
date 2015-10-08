@@ -59,7 +59,24 @@ class StudentAdmin(admin.ModelAdmin):
 class QuickRefAdmin(admin.ModelAdmin):
   list_display = ('id', 'StudentID', 'Condition', 'Page', 'TimeStamp')
   list_filter = ('Condition', 'Page')
+  actions = ['export_quick_ref_events']
 
+  def export_quick_ref_events(modeladmin, request, queryset):
+    response = HttpResponse(content_type='text/csv')
+    writer = csv.writer(response)
+    header = ['DB ID', 'studentID', 'assignment', 'url', 'TimeStamp', 'condition', 'EditorMode', 'Page']
+
+    has_header = False
+
+    for a in queryset:
+      a_info = [a.id, a.StudentID, a.Assignment, a.Hostname, a.TimeStamp, a.Condition, a.EditorMode, a.Page]
+      if not has_header:
+        writer.writerow(header)
+        has_header = True
+      writer.writerow([unicode(a).encode("utf-8") for a in a_info])
+    response['Content-Disposition'] = 'attachment; filename="quickrefevents.csv"'
+
+    return response
 
 
 admin.site.register(Javaseer, JavaseerAdmin)
